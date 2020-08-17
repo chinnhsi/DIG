@@ -293,7 +293,9 @@ export default {
         return this.$message({ type: "error", message: `添加失败,请先选择文件` });
       }
       this.typeSelect.loading = true;
-      Partition.updateTaskType([{ taskId: this.typeSelect.taskItem.taskId, taskType: this.typeSelect.select, file: this.file }])
+      Partition.updateTaskType([
+        { taskId: this.typeSelect.taskItem.taskId, taskType: this.typeSelect.select, file: this.typeSelect.select == 6 ? this.file : null },
+      ])
         .then(() => {
           this.$message({ type: "success", message: `添加成功` });
           this.typeSelect.dialogVisible = false;
