@@ -137,11 +137,16 @@
               <el-select v-model="scope.row.taskType" placeholder="请选择">
                 <el-option v-for="item in newTask.type" :key="item.value" :label="item.label" :value="item.value"> </el-option>
               </el-select>
-              <el-form-item v-if="typeSelect.select == 6">
-                <input @change="selectFileMult(scope.row, $event)" type="file" accept="application/json" />
-              </el-form-item>
             </template>
             <span v-else>视频描述</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="文件设置">
+          <template slot-scope="scope">
+            <el-form-item v-if="scope.row.taskType == 6">
+              <input @change="selectFileMult(scope.row, $event)" type="file" accept="application/json" />
+            </el-form-item>
+            <span v-else>无需选择</span>
           </template>
         </el-table-column>
       </el-table>
@@ -224,7 +229,7 @@ export default {
     selectFileMult(row, event) {
       let fileInput = event.target;
       this.selectFileReader(fileInput, (j) => {
-        row.row = j;
+        row.file = j;
       });
     },
     selectFileReader(fileInput, cb) {
@@ -244,7 +249,7 @@ export default {
                 return;
               }
               console.log(j);
-              cb(j);
+              cb(JSON.stringify(j));
             }
           };
           reader.readAsText(file);

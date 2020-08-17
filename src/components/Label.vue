@@ -592,7 +592,9 @@ export default {
         return;
       }
       console.log("SaveAttrLabel", "data:", this.attrValue[this.attrSelect]);
-      let ps = saveAttrLabel(this.id, this.attrValue[this.attrSelect], this.account.group == 1 ? this.account.id : this.penddingUserSelectId);
+      let o = {};
+      o[this.attrSelect] = this.attrValue[this.attrSelect];
+      let ps = saveAttrLabel(this.id, o, this.account.group == 1 ? this.account.id : this.penddingUserSelectId);
       ps.then(() => {
         this.$message({ type: "success", message: "保存成功" });
       })
